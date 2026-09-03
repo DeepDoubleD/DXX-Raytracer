@@ -266,6 +266,11 @@ target_include_directories(descent2 PRIVATE
 $ENV{RT_EXT_CODE_DIR}
 )
 
+# emit a linker map so crash RVAs can be resolved to functions
+if(MSVC)
+  target_link_options(descent2 PRIVATE /MAP)
+endif()
+
 target_link_libraries(descent2 
 physfs-static
 sdlmain

@@ -61,7 +61,7 @@ jobs:
         run: |
           $out = "package"
           New-Item -ItemType Directory -Force -Path $out | Out-Null
-          Get-ChildItem -Recurse -Path out/build/directx12-win-release -Include *.exe,*.dll |
+          Get-ChildItem -Recurse -Path out/build/directx12-win-release -Include *.exe,*.dll,*.map,*.pdb |
             ForEach-Object { Copy-Item $_.FullName -Destination $out -Force }
           New-Item -ItemType Directory -Force -Path "$out/assets" | Out-Null
           Copy-Item -Recurse -Force RT/Renderer/Backend/DX12/assets/shaders "$out/assets/shaders"

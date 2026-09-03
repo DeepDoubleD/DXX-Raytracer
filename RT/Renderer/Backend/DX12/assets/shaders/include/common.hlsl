@@ -586,6 +586,12 @@ void GetMaterialEdges(uint material_edge_index, out uint mat1, out uint mat2, ou
 
 void GetMaterialIndicesAndOrient(uint material_edge_index, out uint material_index, out uint material_index2, out uint orient, uint material_override)
 {
+	// 'out' parameters arrive uninitialized, and only the final branch below
+	// assigns these two. Seed them with the same defaults the caller uses:
+	// 0xFFFFFFFF is the "no second material" sentinel and orient 0 is no rotation.
+	material_index2 = 0xFFFFFFFF;
+	orient = 0;
+
 	//if (material_edge_index == RT_TRIANGLE_MATERIAL_INSTANCE_OVERRIDE)
 	if (material_override)
 	{
