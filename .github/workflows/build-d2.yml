@@ -1,0 +1,57 @@
+name: Build D2 Raytracer
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "d2-build" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+
+      - name: Install Ninja
+        run: choco install ninja -y --no-progress
+
+      - name: Configure
+        run: cmake --preset directx12-win-release
+
+      - name: Build
+        run: cmake --build ${{ github.workspace }}/out/build/directx12-win-release
+
+      - name: Show build tree
+        if: always()
+        shell: pwsh
+        run: |
+          Get-ChildItem -Recurse -Path out/build/directx12-win-release -Include *.exe,*.dll |
+            Select-Object FullName,Length | Format-Table -AutoSize
+
+      - name: Package
+        if: success()
+        shell: pwsh
+        run: |
+          $out = "package"
+          New-Item -ItemType Directory -Force -Path $out | Out-Null
+          Get-ChildItem -Recurse -Path out/build/directx12-win-release -Include *.exe,*.dll |
+            ForEach-Object { Copy-Item $_.FullName -Destination $out -Force }
+          New-Item -ItemType Directory -Force -Path "$out/assets" | Out-Null
+          Copy-Item -Recurse -Force RT/Renderer/Backend/DX12/assets/shaders "$out/assets/shaders"
+          if (Test-Path d2/assets/textures)   { Copy-Item -Recurse -Force d2/assets/textures   "$out/assets/textures" }
+          if (Test-Path d2/assets/render_presets) { Copy-Item -Recurse -Force d2/assets/render_presets "$out/assets/render_presets" }
+          if (Test-Path d2/assets/splash-logo)    { Copy-Item -Recurse -Force d2/assets/splash-logo    "$out/assets/splash-logo" }
+          if (Test-Path d2/assets/cockpit_textures) { Copy-Item -Recurse -Force d2/assets/cockpit_textures "$out/assets/cockpit_textures" }
+          Get-ChildItem d2/assets -File | Where-Object { $_.Name -like 'cockpit_prototype*' } |
+            ForEach-Object { Copy-Item $_.FullName -Destination "$out/assets" -Force }
+
+      - name: Upload
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: d2x-raytracer-win64
+          path: package/

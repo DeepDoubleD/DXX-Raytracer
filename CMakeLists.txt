@@ -1,4 +1,4 @@
-﻿# CMakeList.txt : Top-level CMake project file, do global configuration
+# CMakeList.txt : Top-level CMake project file, do global configuration
 # and include sub-projects here.
 #
 cmake_minimum_required (VERSION 3.13)
@@ -89,4 +89,4 @@ endif()
 add_subdirectory ("sdl-master")
 add_subdirectory ("physfs-main")
 add_subdirectory ("RT")
-add_subdirectory ("d1")
+add_subdirectory ("d2")
