@@ -20,13 +20,18 @@ jobs:
         run: choco install ninja -y --no-progress
 
       - name: Configure
-        run: cmake --preset directx12-win-release -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+        env:
+          CMAKE_POLICY_VERSION_MINIMUM: "3.5"
+        run: cmake --preset directx12-win-release
 
       - name: Build
+        env:
+          CMAKE_POLICY_VERSION_MINIMUM: "3.5"
         run: cmake --build ${{ github.workspace }}/out/build/directx12-win-release
 
       - name: Show build tree
         if: always()
+        continue-on-error: true
         shell: pwsh
         run: |
           Get-ChildItem -Recurse -Path out/build/directx12-win-release -Include *.exe,*.dll |
