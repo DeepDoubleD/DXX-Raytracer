@@ -76,6 +76,12 @@ add_library (Renderer SHARED
 ${Renderer_SOURCE}
 ${Renderer_HEADER})
 
+# emit a linker map so crash RVAs can be resolved to functions
+if(MSVC)
+  target_link_options(Renderer PRIVATE /MAP)
+endif()
+
+
 install(TARGETS Renderer 
             RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
             LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
