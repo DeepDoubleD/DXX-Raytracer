@@ -267,8 +267,7 @@ $ENV{RT_EXT_CODE_DIR}
 )
 
 target_link_libraries(descent2 
-physfs #-static
-mingw32
+physfs-static
 sdlmain
 sdl
 dxguid
