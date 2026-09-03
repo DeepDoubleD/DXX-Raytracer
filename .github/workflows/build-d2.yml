@@ -65,7 +65,12 @@ jobs:
             ForEach-Object { Copy-Item $_.FullName -Destination $out -Force }
           New-Item -ItemType Directory -Force -Path "$out/assets" | Out-Null
           Copy-Item -Recurse -Force RT/Renderer/Backend/DX12/assets/shaders "$out/assets/shaders"
-          if (Test-Path d2/assets/textures)   { Copy-Item -Recurse -Force d2/assets/textures   "$out/assets/textures" }
+          # the renderer's OWN textures (blue noise) live under the DX12 backend, not d2/.
+          # RenderBackend::Init -> LoadBlueNoiseTextures crashes without them.
+          if (Test-Path RT/Renderer/Backend/DX12/assets/textures) {
+            Copy-Item -Recurse -Force RT/Renderer/Backend/DX12/assets/textures "$out/assets/textures"
+          }
+          if (Test-Path d2/assets/textures)   { Copy-Item -Recurse -Force d2/assets/textures/* "$out/assets/textures/" }
           if (Test-Path d2/assets/render_presets) { Copy-Item -Recurse -Force d2/assets/render_presets "$out/assets/render_presets" }
           if (Test-Path d2/assets/splash-logo)    { Copy-Item -Recurse -Force d2/assets/splash-logo    "$out/assets/splash-logo" }
           if (Test-Path d2/assets/cockpit_textures) { Copy-Item -Recurse -Force d2/assets/cockpit_textures "$out/assets/cockpit_textures" }
