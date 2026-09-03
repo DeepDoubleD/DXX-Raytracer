@@ -17,6 +17,13 @@
 #include "render.h"
 #include "gamefont.h"
 #include "piggy.h"
+
+#ifdef RT_BUILD_DESCENT_II
+// Descent 2 has no shareware-pig flag; that symbol exists only in the D1 tree.
+#define RT_PC_SHARE_PIG 0
+#else
+#define RT_PC_SHARE_PIG PCSharePig
+#endif
 #include "playsave.h"
 
 #include "Core/Arena.h"
@@ -584,7 +591,7 @@ static void RT_GetPolyData(RT_TriangleBuffer *buf,
 
 				bool should_be_emissive = false;
 
-				if (PCSharePig)
+				if (RT_PC_SHARE_PIG)
 				{
 					// pointy melee guy
 					if (jank_currently_loading_poly_model == 2) should_be_emissive = true;
@@ -1087,10 +1094,13 @@ void RT_DisableFreeCam()
 
 void RT_ResetLightEmission()
 {
-	int lightTexture = PCSharePig ? 774 : 997;
+#ifndef RT_BUILD_DESCENT_II
+	// Bitmap indices 774/997 are Descent 1 pig indices with no D2 equivalent.
+	int lightTexture = RT_PC_SHARE_PIG ? 774 : 997;
 	RT_Material* material = &g_rt_materials[lightTexture];
 	material->emissive_strength = 3.5f;
 	RT_UpdateMaterial(lightTexture, material);
+#endif
 }
 
 void RT_StartImGuiFrame(void)

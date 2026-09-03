@@ -9,6 +9,7 @@
 #include "gamefont.h"
 #include "grdef.h"
 #include "globvars.h"
+#include "logger.h"
 
 // ------------------------------------------------------------------
 

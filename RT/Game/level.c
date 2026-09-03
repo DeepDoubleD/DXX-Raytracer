@@ -17,6 +17,7 @@
 #include "RTgr.h"
 #include "Renderer.h"
 #include "Lights.h"
+#include "logger.h"
 
 // ------------------------------------------------------------------
 

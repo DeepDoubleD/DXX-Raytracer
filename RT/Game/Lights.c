@@ -5,6 +5,7 @@
 #include "gr.h"
 #include "RTgr.h"
 #include "RTmaterials.h"
+#include "logger.h"
 
 float g_light_multiplier = 1.0;
 float g_light_multiplier_default = 1.0;
