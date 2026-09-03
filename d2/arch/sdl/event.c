@@ -20,6 +20,7 @@
 //I do not like doing ifdef's here.... ah well it is what it is.
 #ifdef RT_DX12
 #include "RTgr.h"
+#include "logger.h"
 #endif //RT_DX12
 
 

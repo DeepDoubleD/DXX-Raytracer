@@ -31,6 +31,7 @@ COPYRIGHT 1993-1998 PARALLAX SOFTWARE CORPORATION.  ALL RIGHTS RESERVED.
 #include "console.h"
 #ifdef USE_UDP
 #include "net_udp.h"
+#include "logger.h"
 #endif
 
 #define MAX_ARGS 1000

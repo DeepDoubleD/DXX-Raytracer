@@ -29,6 +29,7 @@ COPYRIGHT 1993-1999 PARALLAX SOFTWARE CORPORATION.  ALL RIGHTS RESERVED.
 
 #ifdef OGL
 #include "ogl_init.h"
+#include "logger.h"
 #define MAX_NUM_CACHE_BITMAPS 200
 #else
 #define MAX_NUM_CACHE_BITMAPS 50
