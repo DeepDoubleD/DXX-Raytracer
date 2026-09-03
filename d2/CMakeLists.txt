@@ -1,10 +1,13 @@
-﻿# CMakeList.txt : CMake project for D1-Raytraced, include source and define
+# CMakeList.txt : CMake project for D1-Raytraced, include source and define
 # project specific logic here.
 #
 cmake_minimum_required (VERSION 3.13)
 project(descent2)
 add_compile_definitions(PUBLIC  
-HAVE_STRUCT_TIMEVAL
+# NOTE: HAVE_STRUCT_TIMEVAL is deliberately NOT defined for the MSVC build.
+# The old MinGW build got struct timeval from windows.h (which pulls in
+# winsock.h); MSVC with WIN32_LEAN_AND_MEAN does not, so libmve/mveplay.c
+# must fall back to its own definition. MSVC does provide struct timespec.
 HAVE_STRUCT_TIMESPEC
 IPv6
 NETWORK
