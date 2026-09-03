@@ -20,7 +20,7 @@ jobs:
         run: choco install ninja -y --no-progress
 
       - name: Configure
-        run: cmake --preset directx12-win-release
+        run: cmake --preset directx12-win-release -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
       - name: Build
         run: cmake --build ${{ github.workspace }}/out/build/directx12-win-release
