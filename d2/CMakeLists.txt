@@ -4,11 +4,10 @@
 cmake_minimum_required (VERSION 3.13)
 project(descent2)
 add_compile_definitions(PUBLIC  
-# NOTE: HAVE_STRUCT_TIMEVAL is deliberately NOT defined for the MSVC build.
-# The old MinGW build got struct timeval from windows.h (which pulls in
-# winsock.h); MSVC with WIN32_LEAN_AND_MEAN does not, so libmve/mveplay.c
-# must fall back to its own definition. MSVC does provide struct timespec.
-HAVE_STRUCT_TIMESPEC
+# NOTE: HAVE_STRUCT_TIMEVAL / HAVE_STRUCT_TIMESPEC are deliberately NOT
+# defined for the MSVC build. The old MinGW build got these from windows.h
+# (which pulls in winsock.h) and time.h; libmve/mveplay.c on Windows includes
+# neither, so it must fall back to its own definitions of both structs.
 IPv6
 NETWORK
 NO_ASM
