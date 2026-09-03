@@ -69,19 +69,21 @@ RT_DynamicLightInfo g_rt_dynamic_light_info =
 #define RT_LIGHT_ADJUST_ARRAY_SUBTRACT_OFFSET (CONCUSSION_ID)
 RT_WeaponLightAdjusts rt_light_adjusts[RT_LIGHT_ADJUST_ARRAY_SIZE] =
 {
-	{ "CONCUSSION MISSILE", 1.f, 1.f },				//CONCUSSION_ID
-	{ "FLARE", 10.f, 2.f },						//FLARE_ID
-	{ "LASER", 1.f, 1.f },							//LASER_ID
-	{ "VULCAN GUN", 0.1f, 0.1f },					//VULCAN_ID
-	{ "XSPREADFIRE_NOT_USED", 0.8f, 0.8f },			//XSPREADFIRE_ID
-	{ "PLASMA", 1.5f, 1.5f },						//PLASMA_ID
-	{ "FUSION", 2.f, 2.f },							//FUSION_ID
-	{ "HOMING MISSILE", 1.f, 1.f },					//HOMING_ID
-	{ "PROXIMITY MINE", 1.f, 1.f },					//PROXIMITY_ID
-	{ "SMART MISSILE", 1.f, 1.f },					//SMART_ID
-	{ "MEGA MISSILE", 3.f, 3.f },					//MEGA_ID
-	{ "SMART MISSILE PLASMA", 1.f, 1.f },			//PLAYER_SMART_HOMING_ID
-	{ "SPREADFIRE", 0.8f, 0.8f },					//SPREADFIRE_ID
+	// Indices are (weapon id - CONCUSSION_ID), following the DESCENT 2 enum in
+	// main/laser.h -- ids 8..19. This differs from Descent 1, where SPREADFIRE
+	// sat at 20 and XSPREADFIRE at 12.
+	{ "CONCUSSION MISSILE", 1.f, 1.f },			// 8  CONCUSSION_ID
+	{ "FLARE", 10.f, 2.f },						// 9  FLARE_ID
+	{ "LASER", 1.f, 1.f },						// 10 (unnamed in the D2 enum)
+	{ "VULCAN GUN", 0.1f, 0.1f },				// 11 VULCAN_ID
+	{ "SPREADFIRE", 0.8f, 0.8f },				// 12 SPREADFIRE_ID
+	{ "PLASMA", 1.5f, 1.5f },					// 13 PLASMA_ID
+	{ "FUSION", 2.f, 2.f },						// 14 FUSION_ID
+	{ "HOMING MISSILE", 1.f, 1.f },				// 15 HOMING_ID
+	{ "PROXIMITY MINE", 1.f, 1.f },				// 16 PROXIMITY_ID
+	{ "SMART MISSILE", 1.f, 1.f },				// 17 SMART_ID
+	{ "MEGA MISSILE", 3.f, 3.f },				// 18 MEGA_ID
+	{ "SMART MISSILE PLASMA", 1.f, 1.f },		// 19 PLAYER_SMART_HOMING_ID
 };
 
 //old way that didn't work, compiler thought rt_light_adjusts was an interger.

@@ -19,6 +19,24 @@ jobs:
       - name: Install Ninja
         run: choco install ninja -y --no-progress
 
+      - name: Fetch DXC redistributables
+        shell: pwsh
+        run: |
+          # The repo ships dxc.exe and the import lib but not dxcompiler.dll /
+          # dxil.dll, which CMake copies next to the game as a post-build step.
+          $url = "https://github.com/microsoft/DirectXShaderCompiler/releases/download/v1.9.2607/dxc_2026_07_29.zip"
+          Invoke-WebRequest -Uri $url -OutFile dxc.zip
+          Expand-Archive -Path dxc.zip -DestinationPath dxc_dist -Force
+          $dest = "RT/Renderer/Backend/DX12/DXC/bin/x64"
+          New-Item -ItemType Directory -Force -Path $dest | Out-Null
+          foreach ($n in @("dxcompiler.dll","dxil.dll")) {
+            $src = Get-ChildItem -Recurse -Path dxc_dist -Filter $n |
+                   Where-Object { $_.FullName -match 'x64' } | Select-Object -First 1
+            if (-not $src) { throw "could not find $n in the DXC release" }
+            Copy-Item $src.FullName -Destination "$dest/$n" -Force
+            Write-Host "placed $n ($($src.Length) bytes)"
+          }
+
       - name: Configure
         env:
           CMAKE_POLICY_VERSION_MINIMUM: "3.5"

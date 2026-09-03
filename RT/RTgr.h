@@ -41,7 +41,14 @@ typedef struct RT_WeaponLightAdjusts
 	float brightMul;
 	float radiusMul;
 } RT_WeaponLightAdjusts;
+#ifdef RT_BUILD_DESCENT_II
+// Descent 2 renumbered the weapon enum: SPREADFIRE_ID is 12 (D1 had it at 20,
+// with XSPREADFIRE at 12). Span CONCUSSION..PLAYER_SMART_HOMING instead so the
+// table still covers the primary/secondary weapons.
+#define RT_LIGHT_ADJUST_ARRAY_SIZE (PLAYER_SMART_HOMING_ID - CONCUSSION_ID + 1)
+#else
 #define RT_LIGHT_ADJUST_ARRAY_SIZE (SPREADFIRE_ID - CONCUSSION_ID + 1)
+#endif
 
 typedef struct RT_FreeCamInfo {
 	int g_free_cam_obj;

@@ -4,6 +4,7 @@
 cmake_minimum_required (VERSION 3.13)
 project(descent2)
 add_compile_definitions(PUBLIC  
+RT_BUILD_DESCENT_II
 # NOTE: HAVE_STRUCT_TIMEVAL / HAVE_STRUCT_TIMESPEC are deliberately NOT
 # defined for the MSVC build. The old MinGW build got these from windows.h
 # (which pulls in winsock.h) and time.h; libmve/mveplay.c on Windows includes
@@ -238,6 +239,7 @@ target_sources(descent2 PRIVATE
 	"misc/physfsx.c"
 	"misc/strio.c"
 	"misc/strutil.c"
+	"misc/logger.c"
 	"texmap/ntmap.c"
 	"texmap/scanline.c"
 

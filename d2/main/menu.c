@@ -81,6 +81,7 @@ COPYRIGHT 1993-1999 PARALLAX SOFTWARE CORPORATION.  ALL RIGHTS RESERVED.
 #define RT_RENDER_SETTINGS_CONFIG_FILE "render_settings.vars"
 #include "Core/String.h"
 #include "Core/Config.h"
+#include "logger.h"
 #endif
 
 
