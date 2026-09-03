@@ -203,6 +203,14 @@ void swap_0_255(grs_bitmap *bmp)
 	}
 }
 
+// Declared in piggy.h and used by the raytracer's material code, but never
+// implemented in the D2 tree. Same storage layout as Descent 1.
+void piggy_get_bitmap_name( int i, char * name )
+{
+	strncpy( name, AllBitmaps[i].name, 12 );
+	name[12] = 0;
+}
+
 char* piggy_game_bitmap_name(grs_bitmap *bmp)
 {
 	if (bmp >= GameBitmaps && bmp < &GameBitmaps[MAX_BITMAP_FILES])
