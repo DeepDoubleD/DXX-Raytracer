@@ -93,23 +93,6 @@ static int pcx_read_bitmap_file(struct PCX_PHYSFS_file *const pcxphysfs, grs_bit
 
 int pcx_read_bitmap( char * filename, grs_bitmap * bmp,int bitmap_type ,ubyte * palette )
 {
-	struct PCX_PHYSFS_file pcxphysfs;
-	int result;
-	pcxphysfs.PCXfile = PHYSFSX_openReadBuffered( filename );
-	if (!pcxphysfs.PCXfile)
-		return PCX_ERROR_OPENING;
-	result = pcx_read_bitmap_file(&pcxphysfs, bmp, bitmap_type, palette);
-	PHYSFS_close(pcxphysfs.PCXfile);
-	return result;
-}
-
-static int PCX_PHYSFS_read(struct PCX_PHYSFS_file *pcxphysfs, ubyte *data, unsigned size)
-{
-	return PHYSFS_read(pcxphysfs->PCXfile, data, size, sizeof(*data));
-}
-
-static int pcx_read_bitmap_file(struct PCX_PHYSFS_file *const pcxphysfs, grs_bitmap * bmp,int bitmap_type ,ubyte * palette)
-{
 #ifdef RT_DX12
 	// Just call me Butch Cassidy because this is a hijacking
 	char *ext = strchr(filename, '.');
@@ -132,6 +115,23 @@ static int pcx_read_bitmap_file(struct PCX_PHYSFS_file *const pcxphysfs, grs_bit
 		return PCX_ERROR_NONE;
 	}
 #endif
+	struct PCX_PHYSFS_file pcxphysfs;
+	int result;
+	pcxphysfs.PCXfile = PHYSFSX_openReadBuffered( filename );
+	if (!pcxphysfs.PCXfile)
+		return PCX_ERROR_OPENING;
+	result = pcx_read_bitmap_file(&pcxphysfs, bmp, bitmap_type, palette);
+	PHYSFS_close(pcxphysfs.PCXfile);
+	return result;
+}
+
+static int PCX_PHYSFS_read(struct PCX_PHYSFS_file *pcxphysfs, ubyte *data, unsigned size)
+{
+	return PHYSFS_read(pcxphysfs->PCXfile, data, size, sizeof(*data));
+}
+
+static int pcx_read_bitmap_file(struct PCX_PHYSFS_file *const pcxphysfs, grs_bitmap * bmp,int bitmap_type ,ubyte * palette)
+{
 
 	PCXHeader header;
 	int i, row, col, count, xsize, ysize;
