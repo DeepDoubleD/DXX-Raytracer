@@ -1037,7 +1037,7 @@ void render_external_scene(fix eye_offset)
 	}
 
 	#ifdef STATION_ENABLED
-	draw_polygon_model(&station_pos,&vmd_identity_matrix,NULL,station_modelnum,0,lrgb,NULL,NULL, OBJ_NONE);
+	draw_polygon_model(_RT_DRAW_POLY_SEND_NULL &station_pos,&vmd_identity_matrix,NULL,station_modelnum,0,lrgb,NULL,NULL);
 	#endif
 
 #ifdef OGL

@@ -207,10 +207,16 @@ void flash_frame()
 	fix_fastsincos(flash_ang + flash_offset, &flash_scale_em, NULL);
 	flash_scale_em = (flash_scale_em + f1_0) / 2;
 
+#ifndef RT_BUILD_DESCENT_II
+	// PCSharePig and the 774/997 bitmap indices are Descent 1 specific; there is
+	// no known D2 equivalent, so the per-texture emissive pulse is D1 only.
 	int lightTexture = PCSharePig ? 774 : 997;
 	RT_Material* material = &g_rt_materials[lightTexture];
 	material->emissive_strength = f2fl(flash_scale_em) * 3.5f;
 	RT_UpdateMaterial(lightTexture, material);
+#else
+	(void)flash_scale_em;
+#endif
 #endif
 }
 
