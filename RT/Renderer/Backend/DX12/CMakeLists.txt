@@ -1,4 +1,4 @@
-﻿# CMakeList.txt : Cmake project for the DirectX12DLL
+# CMakeList.txt : Cmake project for the DirectX12DLL
 cmake_minimum_required (VERSION 3.8)
 
 if (MSVC)
@@ -87,7 +87,7 @@ install(FILES ${Renderer_PUBLIC_HEADER} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 #Executable-Object
 set_target_properties ( Renderer PROPERTIES
 	PUBLIC_HEADER "${Renderer_PUBLIC_HEADER}"
-	RUNTIME_OUTPUT_DIRECTORY $<TARGET_FILE_DIR:descent1>
+	RUNTIME_OUTPUT_DIRECTORY $<TARGET_FILE_DIR:${RT_GAME_TARGET}>
 )
 
 set_property(TARGET Renderer PROPERTY CXX_STANDARD 17)
@@ -135,7 +135,7 @@ target_link_libraries(Showcase_Renderer
 Renderer)
 
 set_target_properties ( Showcase_Renderer PROPERTIES
-	RUNTIME_OUTPUT_DIRECTORY $<TARGET_FILE_DIR:descent1>
+	RUNTIME_OUTPUT_DIRECTORY $<TARGET_FILE_DIR:${RT_GAME_TARGET}>
 )
 
 #copies over external assets if they are changed.

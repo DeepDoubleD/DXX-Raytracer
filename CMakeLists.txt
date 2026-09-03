@@ -88,5 +88,6 @@ endif()
 
 add_subdirectory ("sdl-master")
 add_subdirectory ("physfs-main")
+set(RT_GAME_TARGET descent2 CACHE STRING "game target the renderer outputs next to")
 add_subdirectory ("RT")
 add_subdirectory ("d2")
